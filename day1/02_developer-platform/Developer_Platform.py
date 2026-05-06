@@ -1,5 +1,4 @@
 # ── Install & Import ──
-%pip install -q anthropic
 
 import anthropic
 import json
@@ -142,7 +141,57 @@ print(f"   Knowledge base articles: {len(KB_ARTICLES)}")
 # Hint: resolve_ticket.status should be an enum: ["resolved", "escalated", "pending_customer"]
 
 tools = [
-    # Your tool schemas here
+    {
+        "name": "get_ticket",
+        "description": "Retrieve a support ticket by ID to understand the customer issue, priority, and status",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "ticket_id": {
+                    "type": "string",
+                    "description": "The ticket ID (e.g., TKT-1042)"
+                }
+            },
+            "required": ["ticket_id"]
+        }
+    },
+    {
+        "name": "search_kb",
+        "description": "Search the knowledge base for relevant articles and solutions to customer issues",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search query to find relevant knowledge base articles"
+                }
+            },
+            "required": ["query"]
+        }
+    },
+    {
+        "name": "resolve_ticket",
+        "description": "Mark a support ticket with a resolution, escalation, or pending status",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "ticket_id": {
+                    "type": "string",
+                    "description": "The ticket ID to resolve"
+                },
+                "resolution": {
+                    "type": "string",
+                    "description": "Detailed resolution summary including steps taken and next actions"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": ["resolved", "escalated", "pending_customer"],
+                    "description": "Final status of the ticket"
+                }
+            },
+            "required": ["ticket_id", "resolution"]
+        }
+    }
 ]
 
 print(f"Defined {len(tools)} tool schemas: {[t['name'] for t in tools]}")
@@ -211,7 +260,42 @@ Professional, empathetic, and solution-oriented. Acknowledge the customer frustr
 
 def run_agent(user_message: str):
     """Run the support ticket agent."""
-    pass  # Your implementation here
+    messages = [{"role": "user", "content": user_message}]
+
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=32000,
+        system=SYSTEM_PROMPT,
+        tools=tools,
+        thinking={"type": "adaptive"},
+        messages=messages,
+    )
+
+    while response.stop_reason == "tool_use":
+        tool_results = []
+        for block in response.content:
+            if block.type == "tool_use":
+                result = execute_tool(block.name, block.input)
+                tool_results.append({
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": result,
+                })
+
+        # Pass ALL content blocks back, including thinking blocks
+        messages.append({"role": "assistant", "content": response.content})
+        messages.append({"role": "user", "content": tool_results})
+
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=32000,
+            system=SYSTEM_PROMPT,
+            tools=tools,
+            thinking={"type": "adaptive"},
+            messages=messages,
+        )
+
+    return response
 
 
 # Test it!
@@ -262,7 +346,56 @@ def get_structured_result(response) -> dict:
 
 def run_agent_structured(user_message: str) -> dict:
     """Run the agent with structured JSON output."""
-    pass  # Your implementation here
+    messages = [{"role": "user", "content": user_message}]
+
+    # Tool loop WITHOUT format constraint (format breaks tool use)
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=32000,
+        system=SYSTEM_PROMPT,
+        tools=tools,
+        thinking={"type": "adaptive"},
+        messages=messages,
+    )
+
+    while response.stop_reason == "tool_use":
+        tool_results = []
+        for block in response.content:
+            if block.type == "tool_use":
+                result = execute_tool(block.name, block.input)
+                tool_results.append({
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": result,
+                })
+
+        messages.append({"role": "assistant", "content": response.content})
+        messages.append({"role": "user", "content": tool_results})
+
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=32000,
+            system=SYSTEM_PROMPT,
+            tools=tools,
+            thinking={"type": "adaptive"},
+            messages=messages,
+        )
+
+    # Final call with structured output format
+    messages.append({"role": "assistant", "content": response.content})
+    messages.append({"role": "user", "content": "Provide your structured resolution as JSON."})
+
+    final_response = client.messages.create(
+        model=MODEL,
+        max_tokens=8000,
+        system=SYSTEM_PROMPT,
+        thinking={"type": "adaptive"},
+        tool_choice={"type": "none"},
+        output_config={"format": RESOLUTION_SCHEMA},
+        messages=messages,
+    )
+
+    return get_structured_result(final_response)
 
 
 # result = run_agent_structured("Resolve ticket TKT-1042")
@@ -280,7 +413,70 @@ def run_agent_structured(user_message: str) -> dict:
 
 def run_agent_thinking(user_message: str, effort: str = "high") -> dict:
     """Run agent with effort-controlled adaptive thinking."""
-    pass  # Your implementation here
+    messages = [{"role": "user", "content": user_message}]
+
+    # Tool loop with effort but WITHOUT format constraint
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=32000,
+        system=SYSTEM_PROMPT,
+        tools=tools,
+        thinking={"type": "adaptive"},
+        output_config={"effort": effort},
+        messages=messages,
+    )
+
+    while response.stop_reason == "tool_use":
+        # Display thinking blocks from this iteration
+        for block in response.content:
+            if block.type == "thinking":
+                preview = block.thinking[:300] + "..." if len(block.thinking) > 300 else block.thinking
+                print(f"\n[Thinking]: {preview}")
+
+        tool_results = []
+        for block in response.content:
+            if block.type == "tool_use":
+                result = execute_tool(block.name, block.input)
+                tool_results.append({
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": result,
+                })
+
+        messages.append({"role": "assistant", "content": response.content})
+        messages.append({"role": "user", "content": tool_results})
+
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=32000,
+            system=SYSTEM_PROMPT,
+            tools=tools,
+            thinking={"type": "adaptive"},
+            output_config={"effort": effort},
+            messages=messages,
+        )
+
+    # Display final thinking blocks
+    for block in response.content:
+        if block.type == "thinking":
+            preview = block.thinking[:300] + "..." if len(block.thinking) > 300 else block.thinking
+            print(f"\n[Thinking]: {preview}")
+
+    # Final call with effort + format constraint
+    messages.append({"role": "assistant", "content": response.content})
+    messages.append({"role": "user", "content": "Provide your structured resolution as JSON."})
+
+    final_response = client.messages.create(
+        model=MODEL,
+        max_tokens=8000,
+        system=SYSTEM_PROMPT,
+        thinking={"type": "adaptive"},
+        tool_choice={"type": "none"},
+        output_config={"effort": effort, "format": RESOLUTION_SCHEMA},
+        messages=messages,
+    )
+
+    return get_structured_result(final_response)
 
 # Run the ambiguous ticket at high effort — observe the thinking traces
 print("=== TKT-1046: Intermittent API Errors (ambiguous) ===\n")
@@ -315,7 +511,65 @@ for effort in ["high", "low"]:
 
 def run_agent_streaming(user_message: str, effort: str = "high") -> dict:
     """Run agent with streaming output."""
-    pass  # Your implementation here
+    messages = [{"role": "user", "content": user_message}]
+    response = None
+
+    while True:
+        with client.messages.stream(
+            model=MODEL,
+            max_tokens=32000,
+            system=SYSTEM_PROMPT,
+            tools=tools,
+            thinking={"type": "adaptive"},
+            output_config={"effort": effort},
+            messages=messages,
+        ) as stream:
+            for event in stream:
+                if event.type == "content_block_start":
+                    if event.content_block.type == "thinking":
+                        print("\n[Thinking...]", end="", flush=True)
+                    elif event.content_block.type == "tool_use":
+                        print(f"\n[Tool: {event.content_block.name}]", end="", flush=True)
+                elif event.type == "content_block_delta":
+                    if event.delta.type == "thinking_delta":
+                        print(event.delta.thinking, end="", flush=True)
+                    elif event.delta.type == "text_delta":
+                        print(event.delta.text, end="", flush=True)
+
+            response = stream.get_final_message()
+
+        if response.stop_reason != "tool_use":
+            break
+
+        tool_results = []
+        for block in response.content:
+            if block.type == "tool_use":
+                result = execute_tool(block.name, block.input)
+                tool_results.append({
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": result,
+                })
+
+        messages.append({"role": "assistant", "content": response.content})
+        messages.append({"role": "user", "content": tool_results})
+
+    # Final streamed call with effort + format constraint
+    messages.append({"role": "assistant", "content": response.content})
+    messages.append({"role": "user", "content": "Provide your structured resolution as JSON."})
+
+    with client.messages.stream(
+        model=MODEL,
+        max_tokens=8000,
+        system=SYSTEM_PROMPT,
+        thinking={"type": "adaptive"},
+        tool_choice={"type": "none"},
+        output_config={"effort": effort, "format": RESOLUTION_SCHEMA},
+        messages=messages,
+    ) as stream:
+        final_response = stream.get_final_message()
+
+    return get_structured_result(final_response)
 
 print("Full Agent Demo: Resolving TKT-1045 (account lockout)")
 print("   Streaming + Adaptive Thinking + Tools + Structured Output")

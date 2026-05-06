@@ -1,0 +1,23 @@
+{
+  "runs": [
+    [
+      {
+        "task_id": "price_jeans",
+        "task_description": "Direct price lookup for jeans",
+        "query": "How much do jeans cost?",
+        "category": "product_lookup",
+        "error": "Traceback (most recent call last):\n  File \"/var/folders/m_/b1km5h3n78vbfbw3q2x13pnw0000gn/T/ipykernel_55818/3938830390.py\", line 35, in run_single_task\n    raw = agent_fn(task[\"query\"], eval_mode=True, model=model)\n  File \"/var/folders/m_/b1km5h3n78vbfbw3q2x13pnw0000gn/T/ipykernel_55818/2907540166.py\", line 112, in run_agent\n    response = call_claude(messages, tools=ALL_TOOL_SPECS, model=model)\n  File \"/var/folders/m_/b1km5h3n78vbfbw3q2x13pnw0000gn/T/ipykernel_55818/2907540166.py\", line 90, in call_claude\n    return client.messages.create(\n           ~~~~~~~~~~~~~~~~~~~~~~^\n        model=model or MODEL,\n        ^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        messages=messages,\n        ^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/anthropic/_utils/_utils.py\", line 294, in wrapper\n    return func(*args, **kwargs)\n  File \"/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/anthropic/resources/messages/messages.py\", line 1003, in create\n    return self._post(\n           ~~~~~~~~~~^\n        \"/v1/messages\",\n        ^^^^^^^^^^^^^^^\n    ...<30 lines>...\n        stream_cls=Stream[RawMessageStreamEvent],\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/anthropic/_base_client.py\", line 1373, in post\n    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))\n                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/anthropic/_base_client.py\", line 1146, in request\n    raise self._make_status_error_from_response(err.response) from None\nanthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cam34kZsH3fg6FaJHDKpr'}\n",
+        "passed": false,
+        "grades": [],
+        "metrics": {
+          "time": 0.21657609939575195
+        }
+      }
+    ]
+  ],
+  "config": {
+    "model": null,
+    "num_runs": 1,
+    "num_tasks": 1
+  }
+}

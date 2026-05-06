@@ -1,0 +1,228 @@
+{
+  "total": 44,
+  "passed": 44,
+  "failed": 0,
+  "pass_rate": 100.0,
+  "items": {
+    "CHK101": {
+      "description": "process_rfp accepts question list",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK102": {
+      "description": "search_kb tool registered + used",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK103": {
+      "description": "Answer count matches input (looped per question)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK104": {
+      "description": "Required answer fields present in system prompt",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK105": {
+      "description": "Confidence enum mentioned in prompt",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK106": {
+      "description": "Sources field is a list (in prompt)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK107": {
+      "description": "max_turns bound on tool loop",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK201": {
+      "description": "review_answers function defined",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK202": {
+      "description": "Review output has all 3 required fields (in prompt)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK203": {
+      "description": "consistency_score enum in prompt",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK204": {
+      "description": "Review uses separate client.messages.create call",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK205": {
+      "description": "Review has try/except for malformed JSON",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK301": {
+      "description": "Final export has all 5 required top-level fields",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK302": {
+      "description": "Metadata has model + KB entries",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK401": {
+      "description": "ComprehensiveEval class defined",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK402": {
+      "description": "assert_has_sources called",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK403": {
+      "description": "assert_confidence_valid called",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK404": {
+      "description": "Factual data-point assertions present",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK405": {
+      "description": "Fuzzy matching used (_normalize or assert_matches_any)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK406": {
+      "description": "Conditional consistency assertion exists",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK407": {
+      "description": "print_summary outputs pass rate",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK150": {
+      "description": "Four specialists defined",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK151": {
+      "description": "Each specialist is an AgentDefinition (Claude Agent SDK)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK152": {
+      "description": "Category routing wired",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK153": {
+      "description": "Drafted answers carry specialist_key/specialist_label (in agent_core)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK154": {
+      "description": "specialist_assigned event emitted",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK155": {
+      "description": "use_specialists=False fallback exists",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK408": {
+      "description": "Each eval run appears in BOTH live log and durable archive",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK409": {
+      "description": "/api/evals/archive endpoint",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK501": {
+      "description": "End-to-end completes under 3 minutes",
+      "passed": true,
+      "detail": "72.6s"
+    },
+    "CHK502": {
+      "description": "100% of answers cite at least one source",
+      "passed": true,
+      "detail": "5/5"
+    },
+    "CHK503": {
+      "description": "100% of answers have valid confidence",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK504": {
+      "description": "\u2265 90% of factual data points present",
+      "passed": true,
+      "detail": "7/7 (100%)"
+    },
+    "CHK505": {
+      "description": "Review step returns parseable report",
+      "passed": true,
+      "detail": "score=high"
+    },
+    "CHK507": {
+      "description": "Notebook executes with zero cell errors",
+      "passed": true,
+      "detail": "Completed in 72.6s"
+    },
+    "CHK506": {
+      "description": "Eval pass rate \u2265 95%",
+      "passed": true,
+      "detail": "100.0%"
+    },
+    "CHK104_runtime": {
+      "description": "FR-104 runtime: every answer has all 6 fields",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK604": {
+      "description": "Tool loop terminates (no errors observed)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK605": {
+      "description": "Malformed JSON handled (review parsed OK)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK606": {
+      "description": "LLM rephrasing tolerated (fact rate met)",
+      "passed": true,
+      "detail": ""
+    },
+    "CHK607": {
+      "description": "Both/neither mention SOC 2 \u2014 n/a or both consistent",
+      "passed": true,
+      "detail": "q2_soc2=True q5_soc2=True"
+    },
+    "CHK601": {
+      "description": "Out-of-scope question handled (low confidence + flags)",
+      "passed": true,
+      "detail": "confidence=low, flags=4"
+    },
+    "CHK602": {
+      "description": "Ambiguous question handled gracefully",
+      "passed": true,
+      "detail": "confidence=low, flags=3"
+    },
+    "CHK603": {
+      "description": "Question with typos still resolves to correct KB entry",
+      "passed": true,
+      "detail": "confidence=high, flags=1"
+    }
+  }
+}
