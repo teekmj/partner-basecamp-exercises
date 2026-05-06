@@ -1,0 +1,25 @@
+{
+  "total_trials": 100,
+  "trials_with_no_errors": 100,
+  "trials_pct_ok": 100.0,
+  "trials_with_exception": 0,
+  "consistency_score_distribution": {
+    "high": 100
+  },
+  "consistency_high_pct": 100.0,
+  "consistency_medium_pct": 0.0,
+  "consistency_low_pct": 0.0,
+  "all_have_sources_pct": 100.0,
+  "all_valid_confidence_pct": 100.0,
+  "review_parseable_pct": 100.0,
+  "issue_count_avg": 0.34,
+  "issue_count_zero_pct": 73.0,
+  "fact_rate_avg": 1.0,
+  "fact_rate_min": 1.0,
+  "fact_rate_p10": 1.0,
+  "elapsed_avg_s": 124.041,
+  "elapsed_p50_s": 65.9,
+  "elapsed_p95_s": 980.7,
+  "elapsed_max_s": 989.2,
+  "wall_clock_minutes": 35.0
+}

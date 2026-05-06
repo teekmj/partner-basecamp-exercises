@@ -1,0 +1,80 @@
+{
+  "rfp_name": "Helios Security \u2014 Agent Engineering Challenge",
+  "total_questions": 5,
+  "answers": [
+    {
+      "question_id": "Q1",
+      "category": "technical",
+      "answer": "Helios Sentinel takes a multi-layered approach to real-time threat detection, combining three complementary techniques: (1) signature-based matching for known threat indicators, (2) behavioral analysis to identify suspicious activity patterns, and (3) ML-driven anomaly detection to surface novel or previously unseen threats. This layered design ensures both high-fidelity detection of known attacks and adaptive coverage of emerging threats.\n\nThe platform ingests telemetry from a broad range of data sources, including:\n- Endpoint telemetry: process events, file system changes, and network connections\n- Cloud workload logs: AWS CloudTrail, Azure Activity Log, and GCP Audit Log\n- Network flow data: NetFlow v9 and IPFIX\n- Email gateway events\n\nEvents are processed by our SIEM correlation engine, which scales to 50,000 events per second per tenant. Average detection-to-alert latency is 2.3 seconds for signature-based matches and 18 seconds for behavioral detections, enabling near real-time response to active threats.",
+      "sources": [
+        "Helios Platform Architecture Doc v4.2"
+      ],
+      "confidence": "high",
+      "flags": []
+    },
+    {
+      "question_id": "Q2",
+      "category": "compliance",
+      "answer": "Helios Security maintains a comprehensive portfolio of compliance certifications, all kept current through continuous monitoring and quarterly internal audits. Our current certifications and most recent audit/authorization dates are:\n\n\u2022 SOC 2 Type II \u2014 Most recently audited December 2024 by Deloitte\n\u2022 ISO 27001:2022 \u2014 Certified March 2024 by BSI\n\u2022 FedRAMP Moderate \u2014 Authorized June 2024 (sponsoring agency: U.S. Department of Homeland Security)\n\u2022 StateRAMP \u2014 Authorized January 2025\n\u2022 PCI DSS v4.0, Level 1 Service Provider \u2014 Validated September 2024 by Coalfire\n\u2022 HIPAA \u2014 Most recent assessment October 2024; Business Associate Agreements (BAAs) available upon request\n\nAll certifications are maintained on a continuous monitoring basis, with quarterly internal audits supplementing the annual third-party assessments. Audit reports, bridge letters, and certificates can be made available under NDA via our Trust Center.",
+      "sources": [
+        "Helios Compliance & Certifications Register 2025"
+      ],
+      "confidence": "high",
+      "flags": []
+    },
+    {
+      "question_id": "Q3",
+      "category": "pricing",
+      "answer": "Helios offers tiered per-seat pricing for our Endpoint Protection Platform (EPP+EDR bundle) with built-in volume discounts:\n\n\u2022 500 endpoints: $18/seat/month ($108,000/year)\n\u2022 1,000 endpoints: $15/seat/month ($180,000/year) \u2014 17% volume discount\n\u2022 5,000 endpoints: $11/seat/month ($660,000/year) \u2014 39% volume discount\n\nYes, volume discounts are available and are automatically applied at the tier breakpoints shown above. Additional multi-year commitment discounts are also available: a 2-year term provides an additional 5% discount, and a 3-year term provides an additional 10% discount (stackable on top of the volume tier pricing).\n\nThe minimum contract term is 12 months.\n\nOptional add-on modules are available at the following per-seat rates: SIEM add-on at +$6/seat/month, and MDR (Managed Detection and Response) add-on at +$12/seat/month. Please note that all pricing above excludes professional services (e.g., onboarding, deployment, and custom integration), which are quoted separately based on scope.",
+      "sources": [
+        "Helios Commercial Pricing Sheet Q1 2025"
+      ],
+      "confidence": "high",
+      "flags": []
+    },
+    {
+      "question_id": "Q4",
+      "category": "company-info",
+      "answer": "Helios currently serves 47 customers in the financial services vertical, comprising 12 banks, 8 insurance carriers, 15 asset management firms, and 12 fintech companies. Our average Net Promoter Score (NPS) within this vertical is 72, reflecting strong customer satisfaction among financial institutions.\n\nThe following three reference accounts have been approved for external use:\n\n1. **Meridian National Bank** \u2014 3,200 endpoints running Helios EPP, EDR, and SIEM. Deployed since 2022.\n2. **Crestview Capital Partners** \u2014 850 endpoints running Helios EPP and MDR. Deployed since 2023.\n3. **Apex Insurance Group** \u2014 5,100 endpoints running the full Helios platform. Deployed since 2021.\n\nWe would be happy to coordinate reference calls with any of these accounts as part of the evaluation process. Please note that introductions are scheduled through our Customer Success team and typically require 5\u20137 business days of advance notice.",
+      "sources": [
+        "Helios Customer Success \u2014 Vertical Report 2024"
+      ],
+      "confidence": "high",
+      "flags": []
+    },
+    {
+      "question_id": "Q5",
+      "category": "technical",
+      "answer": "Helios provides full EU data residency for customers operating in the European Union through dedicated regional infrastructure hosted in AWS Frankfurt (eu-central-1) and AWS Dublin (eu-west-1). Customers select their preferred EU region at provisioning, and customer data\u2014including telemetry, alerts, and metadata\u2014never leaves the selected region. All EU contracts include a GDPR-compliant Data Processing Agreement (DPA) by default.\n\nEncryption at rest: All customer data is encrypted using AES-256-GCM. Customers may use Helios-managed keys backed by AWS KMS or supply their own keys via Bring Your Own Key (BYOK) for full key custody and rotation control.\n\nEncryption in transit: All API traffic and endpoint agent communications are protected by TLS 1.3. Endpoint agents additionally use certificate pinning to prevent man-in-the-middle attacks against agent-to-cloud channels.\n\nSupporting assurance controls include annual third-party penetration testing performed by NCC Group, configurable per-tenant data retention (default 90 days for raw telemetry and 13 months for aggregated alerts), and certifications relevant to EU customers such as ISO 27001:2022 (certified by BSI) and SOC 2 Type II.",
+      "sources": [
+        "Helios Data Sovereignty & Privacy Whitepaper v3.1",
+        "Helios Compliance & Certifications Register 2025"
+      ],
+      "confidence": "high",
+      "flags": []
+    }
+  ],
+  "consistency_review": {
+    "issues": [
+      "Q4 customer count math inconsistency: 12 banks + 8 insurance + 15 asset management + 12 fintech = 47, which checks out, but Apex Insurance Group is listed as a reference while the insurance segment shows only 8 carriers \u2014 minor consistency note, not a contradiction.",
+      "Q4 reference accounts cite endpoint counts (3,200; 850; 5,100) but Q3 pricing tiers are shown at 500/1,000/5,000 endpoints \u2014 no direct contradiction, but Meridian (3,200) and Crestview (850) fall between published tiers, and the answer doesn't clarify how interpolation works (minor transparency gap).",
+      "Q2 lists ISO 27001:2022 certification by BSI and SOC 2 Type II audited by Deloitte; Q5 references the same ISO 27001:2022 (BSI) and SOC 2 Type II \u2014 consistent, but Q5 omits mention of FedRAMP/StateRAMP/PCI/HIPAA, which is appropriate scoping (not an issue).",
+      "Q5 mentions annual third-party penetration testing by NCC Group, but this control is not referenced in Q1 (technical/detection) or Q2 (compliance) where it could reinforce the security posture narrative \u2014 minor missing cross-reference.",
+      "Tone and level of detail are largely consistent (formal, structured, quantified) across all five answers; no significant tonal drift detected.",
+      "Q3 references an MDR add-on at +$12/seat/month, and Q4 lists Crestview Capital Partners as running 'Helios EPP and MDR' \u2014 consistent. Q4 also references SIEM usage at Meridian, consistent with Q3's SIEM add-on at +$6/seat/month.",
+      "No date contradictions detected across compliance audit dates (Q2) and the data residency/certifications referenced in Q5."
+    ],
+    "consistency_score": "high",
+    "recommendations": [
+      "In Q3, add a brief note on how pricing is calculated for endpoint counts that fall between published tier breakpoints (e.g., Meridian's 3,200 or Crestview's 850), to avoid ambiguity when buyers cross-reference Q3 with Q4 reference accounts.",
+      "Consider adding a brief mention of third-party penetration testing (NCC Group) to Q1 or Q2 to reinforce the security assurance narrative consistently across technical and compliance answers.",
+      "In Q4, briefly clarify the relationship between the 8 insurance carriers in the vertical breakdown and Apex Insurance Group as a named reference, to preempt any reviewer questions about segmentation.",
+      "Consider adding a cross-reference in Q5 to the broader compliance portfolio in Q2 (e.g., 'see Q2 for full certification list') to reinforce that EU customers benefit from the full compliance program, not just ISO 27001 and SOC 2."
+    ]
+  },
+  "metadata": {
+    "model": "claude-opus-4-7",
+    "knowledge_base_entries": 5,
+    "timestamp": "2026-05-06"
+  }
+}

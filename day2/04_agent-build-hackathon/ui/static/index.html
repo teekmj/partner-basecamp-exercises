@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Helios RFP Agent — Platform</title>
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="shield">&#x1F6E1;</span>
+    <h1>Helios RFP Agent</h1>
+    <span class="brand-sub">platform</span>
+  </div>
+  <nav class="topnav">
+    <button class="navtab active" data-mode="run">▶ Run</button>
+    <button class="navtab" data-mode="scenarios">📂 Scenarios</button>
+    <button class="navtab" data-mode="search">🔎 Search</button>
+    <button class="navtab" data-mode="evals">🧪 Evals</button>
+    <button class="navtab" data-mode="arch">🏗 Architecture</button>
+    <button class="navtab" data-mode="present">🎤 Presentation</button>
+    <button class="navtab" data-mode="dev">⚙ Dev</button>
+  </nav>
+  <div class="meta">
+    <span id="kb-count" class="pill">KB: …</span>
+    <span class="pill">claude-opus-4-7</span>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- MODE: RUN -->
+<!-- ============================================================ -->
+<main class="mode" data-mode="run">
+  <div class="layout">
+
+    <section class="panel input-panel">
+      <h2>1 · Input the RFP</h2>
+      <p class="hint">Paste a questionnaire (JSON / numbered / paragraphs).</p>
+
+      <textarea id="rfp-input" rows="9" placeholder="Paste questions here…"></textarea>
+
+      <div class="row">
+        <button id="btn-sample" class="ghost">Load sample</button>
+        <button id="btn-parse" class="ghost">Parse only</button>
+      </div>
+
+      <div class="row save-row">
+        <input type="text" id="save-name" placeholder="Scenario name" class="text-inline" />
+        <input type="text" id="save-client" placeholder="Client" class="text-inline" />
+        <button id="btn-save-scenario" class="ghost">💾 Save as scenario</button>
+      </div>
+
+      <details class="advanced">
+        <summary>API key override</summary>
+        <input type="password" id="api-key" placeholder="sk-ant-… (blank uses server key)" />
+      </details>
+
+      <label class="toggle-row">
+        <input type="checkbox" id="opt-parallel" checked />
+        <span>Run questions in parallel (4× faster)</span>
+      </label>
+
+      <button id="btn-run" class="primary big">▶ Run pipeline</button>
+      <button id="btn-demo" class="demo big">🎬 Demo mode</button>
+
+      <div id="error" class="error hidden"></div>
+    </section>
+
+    <section class="panel pipeline-panel">
+      <h2>2 · Live Pipeline</h2>
+      <div class="pipeline">
+        <div class="stage" data-stage="parse">
+          <div class="stage-icon">📋</div><div class="stage-label">Parse</div>
+          <div class="stage-detail" data-detail-for="parse">—</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage" data-stage="retrieve_draft">
+          <div class="stage-icon">🎓</div><div class="stage-label">Specialists Draft</div>
+          <div class="stage-detail" data-detail-for="retrieve_draft">—</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage" data-stage="review">
+          <div class="stage-icon">🧐</div><div class="stage-label">Consistency</div>
+          <div class="stage-detail" data-detail-for="review">—</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage" data-stage="qa_review">
+          <div class="stage-icon">📊</div><div class="stage-label">QA Score</div>
+          <div class="stage-detail" data-detail-for="qa_review">—</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage" data-stage="demo">
+          <div class="stage-icon">🎤</div><div class="stage-label">Demo</div>
+          <div class="stage-detail" data-detail-for="demo">—</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="stage" data-stage="export">
+          <div class="stage-icon">📦</div><div class="stage-label">Export</div>
+          <div class="stage-detail" data-detail-for="export">—</div>
+        </div>
+      </div>
+
+      <h3>Activity feed</h3>
+      <div id="activity" class="activity"></div>
+    </section>
+
+    <section class="panel output-panel">
+      <h2>3 · Output</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="answers">Answers</button>
+        <button class="tab" data-tab="review">Review</button>
+        <button class="tab" data-tab="qa">QA Scorecard</button>
+        <button class="tab" data-tab="demo">🎤 Demo Notes</button>
+        <button class="tab" data-tab="json">JSON</button>
+      </div>
+
+      <div class="tab-content" data-content="answers">
+        <p class="hint" id="answers-empty">Run the pipeline to see drafted answers.</p>
+        <div id="answers"></div>
+      </div>
+      <div class="tab-content hidden" data-content="review">
+        <p class="hint" id="review-empty">Review report appears here after drafting.</p>
+        <div id="review"></div>
+      </div>
+      <div class="tab-content hidden" data-content="qa">
+        <p class="hint" id="qa-empty">Senior Reviewer scorecard appears here after drafting.</p>
+        <div id="qa-scorecard"></div>
+      </div>
+      <div class="tab-content hidden" data-content="demo">
+        <p class="hint" id="demo-empty">Sales presenter notes from the Demoer appear here after drafting.</p>
+        <div id="demo-notes"></div>
+      </div>
+      <div class="tab-content hidden" data-content="json">
+        <pre id="json-output"></pre>
+      </div>
+
+      <div class="export-row hidden" id="export-row">
+        <button id="btn-export-html" class="primary">⬇ Download HTML / PDF</button>
+        <button id="btn-attach-scenario" class="ghost hidden">📂 Attach to scenario</button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- MODE: SCENARIOS -->
+<!-- ============================================================ -->
+<main class="mode hidden" data-mode="scenarios">
+  <div class="single-panel">
+    <section class="panel">
+      <h2>📂 Scenarios</h2>
+      <p class="hint">Save multiple variants of a questionnaire per client. Run, clone, or revise any scenario.</p>
+
+      <div class="row">
+        <button id="btn-refresh-scenarios" class="ghost">↻ Refresh</button>
+        <button id="btn-new-scenario" class="ghost">+ New scenario</button>
+        <button id="btn-seed-scenarios" class="ghost">🌱 Seed 50 samples</button>
+      </div>
+
+      <div class="row">
+        <input type="text" id="scenarios-filter" placeholder="Filter by name, client, vertical…" class="text-inline" />
+      </div>
+
+      <div id="scenarios-list" class="scenario-list"></div>
+    </section>
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- MODE: SEARCH -->
+<!-- ============================================================ -->
+<main class="mode hidden" data-mode="search">
+  <div class="single-panel">
+    <section class="panel">
+      <h2>🔎 Search</h2>
+      <p class="hint">Search across the knowledge base, saved scenarios, and past run answers.</p>
+
+      <div class="search-row">
+        <input type="text" id="search-input" placeholder="Search query (e.g. 'AES encryption EU')…" />
+        <button id="btn-search" class="primary">Search</button>
+      </div>
+
+      <div class="search-filters">
+        <label><input type="checkbox" class="search-type" value="kb" checked /> KB entries</label>
+        <label><input type="checkbox" class="search-type" value="scenario" checked /> Scenarios</label>
+        <label><input type="checkbox" class="search-type" value="answer" checked /> Past answers</label>
+      </div>
+
+      <div id="search-results" class="search-results"></div>
+    </section>
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- MODE: EVALS -->
+<!-- ============================================================ -->
+<main class="mode hidden" data-mode="evals">
+  <div class="single-panel">
+    <section class="panel">
+      <h2>🧪 Evals</h2>
+      <p class="hint">Run pre-defined eval suites against the live agent. Each suite returns pass/fail per assertion.</p>
+
+      <div id="eval-suites" class="suite-grid"></div>
+
+      <div id="eval-active" class="hidden">
+        <h3>Live progress</h3>
+        <div id="eval-progress" class="activity"></div>
+        <div id="eval-result" class="hidden"></div>
+      </div>
+
+      <div class="tabs" style="margin-top:24px;">
+        <button class="tab active" data-tab="eval-recent">Recent runs</button>
+        <button class="tab" data-tab="eval-archive">Archive (durable)</button>
+      </div>
+
+      <div class="tab-content" data-content="eval-recent">
+        <div id="eval-history" class="eval-history"></div>
+      </div>
+
+      <div class="tab-content hidden" data-content="eval-archive">
+        <p class="hint">Append-only history committed to the repository. Survives clears and resets.</p>
+        <div id="eval-archive-list" class="eval-history"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- MODE: ARCHITECTURE -->
+<!-- ============================================================ -->
+<main class="mode hidden" data-mode="arch">
+  <div class="single-panel">
+    <section class="panel">
+      <h2>🏗 Architecture</h2>
+
+      <h3 style="margin-top:14px;">System layers</h3>
+      <div class="arch-layers">
+        <div class="arch-layer browser">
+          <div class="arch-layer-label">Browser</div>
+          <div class="arch-layer-detail">index.html · app.js · styles.css<br/>SPA with mode/tab navigation, SSE reader, live renderer</div>
+        </div>
+        <div class="arch-conn">▼ HTTP POST + SSE stream</div>
+        <div class="arch-layer backend">
+          <div class="arch-layer-label">Flask backend (app.py)</div>
+          <div class="arch-layer-detail">/api/run · /api/scenarios · /api/search · /api/evals · /api/export · /api/dev/*</div>
+        </div>
+        <div class="arch-conn">▼ run_pipeline() · search() · suite()</div>
+        <div class="arch-layer agent">
+          <div class="arch-layer-label">Domain modules</div>
+          <div class="arch-layer-detail">agent_core · search_engine · evals · exporter · storage</div>
+        </div>
+        <div class="arch-conn">▼ Anthropic Messages API</div>
+        <div class="arch-layer claude">
+          <div class="arch-layer-label">claude-opus-4-7</div>
+          <div class="arch-layer-detail">Drafting (with tool use) + Review (no tools)</div>
+        </div>
+      </div>
+
+      <h3>Pipeline stages</h3>
+      <div class="arch-pipeline">
+        <div class="arch-stage" data-stage-color="parse">
+          <div class="arch-stage-num">1</div><div class="arch-stage-name">Parse</div>
+          <div class="arch-stage-meta">no LLM · pure Python</div>
+          <div class="arch-stage-desc">JSON / numbered / bulleted / paragraph input → list of <code>{id, category, text}</code></div>
+        </div>
+        <div class="arch-stage" data-stage-color="retrieve">
+          <div class="arch-stage-num">2</div><div class="arch-stage-name">Retrieve</div>
+          <div class="arch-stage-meta">no LLM · keyword scoring</div>
+          <div class="arch-stage-desc">Token-overlap + category boost (+5) → top-3 KB entries</div>
+        </div>
+        <div class="arch-stage" data-stage-color="draft">
+          <div class="arch-stage-num">3</div><div class="arch-stage-name">Draft</div>
+          <div class="arch-stage-meta">LLM + tool loop (≤5 turns)</div>
+          <div class="arch-stage-desc">Agent calls <code>search_kb</code>, synthesizes JSON answer with sources + confidence + flags</div>
+        </div>
+        <div class="arch-stage" data-stage-color="review">
+          <div class="arch-stage-num">4</div><div class="arch-stage-name">Review</div>
+          <div class="arch-stage-meta">LLM, no tools</div>
+          <div class="arch-stage-desc">Holistic pass · returns <code>{consistency_score, issues, recommendations}</code></div>
+        </div>
+        <div class="arch-stage" data-stage-color="export">
+          <div class="arch-stage-num">5</div><div class="arch-stage-name">Export</div>
+          <div class="arch-stage-meta">no LLM · JSON + HTML</div>
+          <div class="arch-stage-desc">Final deliverable as JSON or printable HTML (browser → PDF)</div>
+        </div>
+      </div>
+
+      <h3>Data flow</h3>
+      <pre class="arch-ascii">
+ ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌────────┐
+ │  PARSE   │ ──▶ │ RETRIEVE │ ──▶ │  DRAFT   │ ──▶ │  REVIEW  │ ──▶ │ EXPORT │
+ │  (text)  │     │  (KB)    │     │  (LLM)   │     │  (LLM)   │     │  JSON  │
+ └──────────┘     └──────────┘     └──────────┘     └──────────┘     └───┬────┘
+                                                                         │
+                                                              ┌──────────▼──────────┐
+                                                              │  HTML / PDF / save  │
+                                                              │  to scenario store  │
+                                                              └─────────────────────┘
+      </pre>
+
+      <h3>SSE event protocol</h3>
+      <table class="arch-table">
+        <thead><tr><th>Event</th><th>Fields</th><th>Emitted by</th></tr></thead>
+        <tbody>
+          <tr><td><code>pipeline_start</code></td><td>rfp_name, scenario_id</td><td>backend wrapper</td></tr>
+          <tr><td><code>stage_start</code></td><td>stage</td><td>each stage entry</td></tr>
+          <tr><td><code>question_start</code></td><td>qid, text, category</td><td>per question</td></tr>
+          <tr><td><code>tool_call</code></td><td>qid, tool, input</td><td>each tool turn</td></tr>
+          <tr><td><code>tool_result</code></td><td>qid, n_results, sources</td><td>after retrieve</td></tr>
+          <tr><td><code>question_done</code></td><td>qid, answer</td><td>end of draft</td></tr>
+          <tr><td><code>stage_done</code></td><td>stage, payload</td><td>each stage exit</td></tr>
+          <tr><td><code>scenario_updated</code></td><td>scenario_id</td><td>after attach_result</td></tr>
+          <tr><td><code>pipeline_complete</code></td><td>final</td><td>end of run</td></tr>
+          <tr><td><code>error</code></td><td>error</td><td>on exception</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Failure modes</h3>
+      <table class="arch-table">
+        <thead><tr><th>Failure</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>LLM returns malformed JSON</td><td><code>_extract_json</code> tries fenced + raw + embedded; fallback shape on failure</td></tr>
+          <tr><td>Tool loop never ends</td><td><code>max_turns=5</code> · returns <code>flags: [max_turns_exceeded]</code></td></tr>
+          <tr><td>Reviewer truncates JSON</td><td><code>max_tokens=4096</code> + robust extractor</td></tr>
+          <tr><td>Reviewer false positives</td><td>Sharpened prompt distinguishes contradiction from coverage gap</td></tr>
+          <tr><td>API key missing</td><td>Backend HTTP 400 · UI inline error</td></tr>
+          <tr><td>Server thread crash</td><td>Producer thread try/except emits <code>{type: error}</code> over SSE</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- MODE: PRESENTATION -->
+<!-- ============================================================ -->
+<main class="mode hidden" data-mode="present">
+  <div class="single-panel">
+    <section class="panel">
+      <h2>🎤 Solution Presentation</h2>
+      <p class="hint">Slides walking through the platform. Use ←/→ keys or the buttons. Press <kbd>F</kbd> for fullscreen.</p>
+
+      <div class="slide-controls">
+        <button id="btn-slide-prev" class="ghost">← Prev</button>
+        <span id="slide-counter" class="pill">1 / —</span>
+        <button id="btn-slide-next" class="primary">Next →</button>
+        <button id="btn-slide-fullscreen" class="ghost" style="margin-left:auto;">⛶ Fullscreen</button>
+      </div>
+
+      <div id="slide-stage" class="slide-stage">
+        <!-- Slides injected by JS -->
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ============================================================ -->
+<!-- MODE: DEV -->
+<!-- ============================================================ -->
+<main class="mode hidden" data-mode="dev">
+  <div class="single-panel">
+    <section class="panel">
+      <h2>⚙ Dev mode</h2>
+      <p class="hint">Inspect prompts, KB, and the request log. For developers and operators.</p>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="dev-prompts">Prompts</button>
+        <button class="tab" data-tab="dev-specialists">Specialists</button>
+        <button class="tab" data-tab="dev-kb">KB inspector</button>
+        <button class="tab" data-tab="dev-log">Request log</button>
+      </div>
+
+      <div class="tab-content" data-content="dev-prompts">
+        <h3>SYSTEM_PROMPT (generic fallback)</h3>
+        <pre id="dev-system-prompt" class="dev-pre">loading…</pre>
+        <h3>REVIEW_PROMPT_TMPL</h3>
+        <pre id="dev-review-prompt" class="dev-pre">loading…</pre>
+      </div>
+
+      <div class="tab-content hidden" data-content="dev-specialists">
+        <p class="hint">Four specialist sub-agents (configured as <code>claude_agent_sdk.AgentDefinition</code>). Questions are routed by category.</p>
+        <div id="dev-specialists-list"></div>
+      </div>
+
+      <div class="tab-content hidden" data-content="dev-kb">
+        <p class="hint">Full content of every knowledge base entry.</p>
+        <div id="dev-kb-list"></div>
+      </div>
+
+      <div class="tab-content hidden" data-content="dev-log">
+        <div class="row">
+          <button id="btn-refresh-log" class="ghost">↻ Refresh</button>
+          <button id="btn-clear-log" class="ghost">🗑 Clear</button>
+        </div>
+        <div id="dev-log-table"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <span>Helios RFP Agent · 5-stage pipeline · scenario store · search · evals · HTML export</span>
+  <span><a href="/api/health" target="_blank">Health</a></span>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

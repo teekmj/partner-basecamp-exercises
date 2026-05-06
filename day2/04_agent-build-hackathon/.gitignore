@@ -1,0 +1,23 @@
+# Claude Code local config (per-user)
+.claude/
+
+# Spec-kit local init artifacts (per-user)
+.specify/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Server runtime state (mutable; not source-of-truth)
+ui/server.log
+ui/data/scenarios.json
+ui/data/eval_runs.jsonl
+ui/data/request_log.jsonl
+# NOTE: ui/data/evals_archive/ IS committed (FR-408 — durable history)
