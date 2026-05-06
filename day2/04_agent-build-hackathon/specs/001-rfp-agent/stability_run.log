@@ -1,0 +1,135 @@
+Running 100 trials with 6 parallel workers
+Streaming results to /Users/tanaymukherjee/dev/partner-basecamp-exercises/day2/04_agent-build-hackathon/specs/001-rfp-agent/results.jsonl
+Final summary will write to /Users/tanaymukherjee/dev/partner-basecamp-exercises/day2/04_agent-build-hackathon/specs/001-rfp-agent/stability_summary.json
+
+[  1/100] trial   3 score=high   issues=0 facts=100% ok=True (62.7s)
+[  2/100] trial   1 score=high   issues=0 facts=100% ok=True (63.6s)
+[  3/100] trial   0 score=high   issues=0 facts=100% ok=True (65.9s)
+[  4/100] trial   4 score=high   issues=0 facts=100% ok=True (66.7s)
+[  5/100] trial   2 score=high   issues=0 facts=100% ok=True (67.3s)
+[  6/100] trial   5 score=high   issues=2 facts=100% ok=True (70.7s)
+[  7/100] trial   6 score=high   issues=0 facts=100% ok=True (56.8s)
+[  8/100] trial   7 score=high   issues=0 facts=100% ok=True (62.8s)
+[  9/100] trial   9 score=high   issues=1 facts=100% ok=True (62.5s)
+[ 10/100] trial  11 score=high   issues=0 facts=100% ok=True (60.7s)
+[ 11/100] trial   8 score=high   issues=0 facts=100% ok=True (66.5s)
+[ 12/100] trial  10 score=high   issues=0 facts=100% ok=True (69.0s)
+[ 13/100] trial  12 score=high   issues=0 facts=100% ok=True (64.0s)
+[ 14/100] trial  13 score=high   issues=0 facts=100% ok=True (65.7s)
+[ 15/100] trial  14 score=high   issues=1 facts=100% ok=True (64.9s)
+[ 16/100] trial  15 score=high   issues=0 facts=100% ok=True (64.3s)
+[ 17/100] trial  16 score=high   issues=0 facts=100% ok=True (64.1s)
+[ 18/100] trial  17 score=high   issues=0 facts=100% ok=True (66.7s)
+[ 19/100] trial  18 score=high   issues=1 facts=100% ok=True (64.1s)
+[ 20/100] trial  21 score=high   issues=0 facts=100% ok=True (64.3s)
+[ 21/100] trial  20 score=high   issues=0 facts=100% ok=True (66.2s)
+[ 22/100] trial  22 score=high   issues=0 facts=100% ok=True (65.4s)
+[ 23/100] trial  19 score=high   issues=1 facts=100% ok=True (71.0s)
+[ 24/100] trial  23 score=high   issues=1 facts=100% ok=True (70.7s)
+[ 25/100] trial  24 score=high   issues=0 facts=100% ok=True (67.0s)
+[ 26/100] trial  25 score=high   issues=0 facts=100% ok=True (64.5s)
+[ 27/100] trial  27 score=high   issues=2 facts=100% ok=True (64.8s)
+[ 28/100] trial  26 score=high   issues=1 facts=100% ok=True (69.1s)
+[ 29/100] trial  28 score=high   issues=2 facts=100% ok=True (66.6s)
+[ 30/100] trial  29 score=high   issues=0 facts=100% ok=True (61.3s)
+[ 31/100] trial  32 score=high   issues=0 facts=100% ok=True (58.7s)
+[ 32/100] trial  30 score=high   issues=0 facts=100% ok=True (73.9s)
+[ 33/100] trial  34 score=high   issues=1 facts=100% ok=True (61.2s)
+[ 34/100] trial  35 score=high   issues=0 facts=100% ok=True (62.5s)
+[ 35/100] trial  33 score=high   issues=0 facts=100% ok=True (74.1s)
+[ 36/100] trial  31 score=high   issues=0 facts=100% ok=True (89.7s)
+[ 37/100] trial  37 score=high   issues=1 facts=100% ok=True (64.0s)
+[ 38/100] trial  38 score=high   issues=0 facts=100% ok=True (61.6s)
+[ 39/100] trial  36 score=high   issues=0 facts=100% ok=True (75.3s)
+[ 40/100] trial  39 score=high   issues=0 facts=100% ok=True (70.9s)
+[ 41/100] trial  40 score=high   issues=2 facts=100% ok=True (66.6s)
+[ 42/100] trial  41 score=high   issues=0 facts=100% ok=True (65.7s)
+[ 43/100] trial  42 score=high   issues=0 facts=100% ok=True (60.3s)
+[ 44/100] trial  44 score=high   issues=0 facts=100% ok=True (63.9s)
+[ 45/100] trial  43 score=high   issues=2 facts=100% ok=True (76.3s)
+[ 46/100] trial  46 score=high   issues=1 facts=100% ok=True (61.6s)
+[ 47/100] trial  45 score=high   issues=0 facts=100% ok=True (63.4s)
+[ 48/100] trial  47 score=high   issues=1 facts=100% ok=True (65.5s)
+[ 49/100] trial  48 score=high   issues=1 facts=100% ok=True (63.0s)
+[ 50/100] trial  49 score=high   issues=0 facts=100% ok=True (65.8s)
+[ 51/100] trial  50 score=high   issues=0 facts=100% ok=True (64.4s)
+[ 52/100] trial  52 score=high   issues=0 facts=100% ok=True (61.6s)
+[ 53/100] trial  51 score=high   issues=0 facts=100% ok=True (68.6s)
+[ 54/100] trial  53 score=high   issues=0 facts=100% ok=True (63.6s)
+[ 55/100] trial  57 score=high   issues=0 facts=100% ok=True (63.4s)
+[ 56/100] trial  56 score=high   issues=0 facts=100% ok=True (66.7s)
+[ 57/100] trial  55 score=high   issues=1 facts=100% ok=True (72.2s)
+[ 58/100] trial  58 score=high   issues=1 facts=100% ok=True (64.3s)
+[ 59/100] trial  59 score=high   issues=1 facts=100% ok=True (65.4s)
+[ 60/100] trial  54 score=high   issues=0 facts=100% ok=True (150.1s)
+[ 61/100] trial  62 score=high   issues=0 facts=100% ok=True (64.5s)
+[ 62/100] trial  61 score=high   issues=0 facts=100% ok=True (68.6s)
+[ 63/100] trial  63 score=high   issues=1 facts=100% ok=True (67.2s)
+[ 64/100] trial  66 score=high   issues=0 facts=100% ok=True (61.6s)
+[ 65/100] trial  65 score=high   issues=0 facts=100% ok=True (63.7s)
+[ 66/100] trial  67 score=high   issues=0 facts=100% ok=True (67.8s)
+[ 67/100] trial  60 score=high   issues=0 facts=100% ok=True (143.1s)
+[ 68/100] trial  64 score=high   issues=0 facts=100% ok=True (139.6s)
+[ 69/100] trial  70 score=high   issues=2 facts=100% ok=True (68.4s)
+[ 70/100] trial  69 score=high   issues=1 facts=100% ok=True (72.4s)
+[ 71/100] trial  71 score=high   issues=0 facts=100% ok=True (65.1s)
+[ 72/100] trial  72 score=high   issues=0 facts=100% ok=True (64.8s)
+[ 73/100] trial  68 score=high   issues=0 facts=100% ok=True (139.2s)
+[ 74/100] trial  73 score=high   issues=0 facts=100% ok=True (67.8s)
+[ 75/100] trial  74 score=high   issues=0 facts=100% ok=True (66.3s)
+[ 76/100] trial  76 score=high   issues=1 facts=100% ok=True (65.8s)
+[ 77/100] trial  75 score=high   issues=0 facts=100% ok=True (69.6s)
+[ 78/100] trial  77 score=high   issues=0 facts=100% ok=True (67.8s)
+[ 79/100] trial  78 score=high   issues=0 facts=100% ok=True (69.6s)
+[ 80/100] trial  79 score=high   issues=0 facts=100% ok=True (66.2s)
+[ 81/100] trial  80 score=high   issues=0 facts=100% ok=True (58.9s)
+[ 82/100] trial  81 score=high   issues=0 facts=100% ok=True (59.9s)
+[ 83/100] trial  82 score=high   issues=0 facts=100% ok=True (59.5s)
+[ 84/100] trial  84 score=high   issues=1 facts=100% ok=True (66.1s)
+[ 85/100] trial  85 score=high   issues=0 facts=100% ok=True (62.9s)
+[ 86/100] trial  83 score=high   issues=0 facts=100% ok=True (78.8s)
+[ 87/100] trial  88 score=high   issues=0 facts=100% ok=True (974.4s)
+[ 88/100] trial  86 score=high   issues=2 facts=100% ok=True (985.5s)
+[ 89/100] trial  87 score=high   issues=0 facts=100% ok=True (985.4s)
+[ 90/100] trial  89 score=high   issues=0 facts=100% ok=True (980.7s)
+[ 91/100] trial  90 score=high   issues=0 facts=100% ok=True (983.2s)
+[ 92/100] trial  91 score=high   issues=0 facts=100% ok=True (989.2s)
+[ 93/100] trial  92 score=high   issues=1 facts=100% ok=True (64.2s)
+[ 94/100] trial  93 score=high   issues=0 facts=100% ok=True (66.9s)
+[ 95/100] trial  94 score=high   issues=0 facts=100% ok=True (68.0s)
+[ 96/100] trial  96 score=high   issues=0 facts=100% ok=True (56.5s)
+[ 97/100] trial  95 score=high   issues=0 facts=100% ok=True (69.4s)
+[ 98/100] trial  97 score=high   issues=0 facts=100% ok=True (68.6s)
+[ 99/100] trial  98 score=high   issues=1 facts=100% ok=True (59.7s)
+[100/100] trial  99 score=high   issues=0 facts=100% ok=True (63.0s)
+
+All 100 trials done in 35.0 minutes
+
+======================================================================
+STABILITY SUMMARY
+======================================================================
+{
+  "total_trials": 100,
+  "trials_with_no_errors": 100,
+  "trials_pct_ok": 100.0,
+  "trials_with_exception": 0,
+  "consistency_score_distribution": {
+    "high": 100
+  },
+  "consistency_high_pct": 100.0,
+  "consistency_medium_pct": 0.0,
+  "consistency_low_pct": 0.0,
+  "all_have_sources_pct": 100.0,
+  "all_valid_confidence_pct": 100.0,
+  "review_parseable_pct": 100.0,
+  "issue_count_avg": 0.34,
+  "issue_count_zero_pct": 73.0,
+  "fact_rate_avg": 1.0,
+  "fact_rate_min": 1.0,
+  "fact_rate_p10": 1.0,
+  "elapsed_avg_s": 124.041,
+  "elapsed_p50_s": 65.9,
+  "elapsed_p95_s": 980.7,
+  "elapsed_max_s": 989.2,
+  "wall_clock_minutes": 35.0
+}

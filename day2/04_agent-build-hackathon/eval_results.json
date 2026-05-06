@@ -1,0 +1,318 @@
+{
+  "passed": 52,
+  "failed": 0,
+  "assertions": [
+    {
+      "test": "Q1_latency_signature",
+      "question": "Q1",
+      "passed": true,
+      "details": "Expected '2.3 seconds'"
+    },
+    {
+      "test": "Q1_latency_behavioral",
+      "question": "Q1",
+      "passed": true,
+      "details": "Expected '18 seconds'"
+    },
+    {
+      "test": "Q1_siem_eps",
+      "question": "Q1",
+      "passed": true,
+      "details": "Expected '50,000'"
+    },
+    {
+      "test": "Q2_soc2_date",
+      "question": "Q2",
+      "passed": true,
+      "details": "Expected 'December 2024'"
+    },
+    {
+      "test": "Q2_fedramp_date",
+      "question": "Q2",
+      "passed": true,
+      "details": "Expected 'June 2024'"
+    },
+    {
+      "test": "Q2_stateRamp_date",
+      "question": "Q2",
+      "passed": true,
+      "details": "Expected 'January 2025'"
+    },
+    {
+      "test": "Q3_pricing_500",
+      "question": "Q3",
+      "passed": true,
+      "details": "Expected '$18/seat/month'"
+    },
+    {
+      "test": "Q3_discount_5000",
+      "question": "Q3",
+      "passed": true,
+      "details": "Expected '39%'"
+    },
+    {
+      "test": "Q3_min_term",
+      "question": "Q3",
+      "passed": true,
+      "details": "Expected '12 months'"
+    },
+    {
+      "test": "Q4_customer_count",
+      "question": "Q4",
+      "passed": true,
+      "details": "Expected '47 customers'"
+    },
+    {
+      "test": "Q4_ref_meridian",
+      "question": "Q4",
+      "passed": true,
+      "details": "Expected 'Meridian'"
+    },
+    {
+      "test": "Q4_ref_crestview",
+      "question": "Q4",
+      "passed": true,
+      "details": "Expected 'Crestview'"
+    },
+    {
+      "test": "Q5_encryption_rest",
+      "question": "Q5",
+      "passed": true,
+      "details": "Expected 'AES-256-GCM'"
+    },
+    {
+      "test": "Q5_encryption_transit",
+      "question": "Q5",
+      "passed": true,
+      "details": "Expected 'TLS 1.3'"
+    },
+    {
+      "test": "Q5_gdpr",
+      "question": "Q5",
+      "passed": true,
+      "details": "Expected 'GDPR'"
+    },
+    {
+      "test": "has_1_sources",
+      "question": "Q1",
+      "passed": true,
+      "details": "Expected 1+ sources, got 1"
+    },
+    {
+      "test": "has_1_sources",
+      "question": "Q2",
+      "passed": true,
+      "details": "Expected 1+ sources, got 1"
+    },
+    {
+      "test": "has_1_sources",
+      "question": "Q3",
+      "passed": true,
+      "details": "Expected 1+ sources, got 1"
+    },
+    {
+      "test": "has_1_sources",
+      "question": "Q4",
+      "passed": true,
+      "details": "Expected 1+ sources, got 1"
+    },
+    {
+      "test": "has_1_sources",
+      "question": "Q5",
+      "passed": true,
+      "details": "Expected 1+ sources, got 2"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "Q1",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'high'"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "Q2",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'high'"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "Q3",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'high'"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "Q4",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'high'"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "Q5",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'high'"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "Q1",
+      "passed": true,
+      "details": "Answer too short: 1026 chars"
+    },
+    {
+      "test": "no_placeholder",
+      "question": "Q1",
+      "passed": true,
+      "details": "Answer contains placeholder text"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "Q2",
+      "passed": true,
+      "details": "Answer too short: 924 chars"
+    },
+    {
+      "test": "no_placeholder",
+      "question": "Q2",
+      "passed": true,
+      "details": "Answer contains placeholder text"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "Q3",
+      "passed": true,
+      "details": "Answer too short: 1012 chars"
+    },
+    {
+      "test": "no_placeholder",
+      "question": "Q3",
+      "passed": true,
+      "details": "Answer contains placeholder text"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "Q4",
+      "passed": true,
+      "details": "Answer too short: 934 chars"
+    },
+    {
+      "test": "no_placeholder",
+      "question": "Q4",
+      "passed": true,
+      "details": "Answer contains placeholder text"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "Q5",
+      "passed": true,
+      "details": "Answer too short: 1200 chars"
+    },
+    {
+      "test": "no_placeholder",
+      "question": "Q5",
+      "passed": true,
+      "details": "Answer contains placeholder text"
+    },
+    {
+      "test": "consistency_iso27001_mentioned",
+      "question": "",
+      "passed": true,
+      "details": "Condition should be true"
+    },
+    {
+      "test": "consistency_soc2_in_q2",
+      "question": "Q2",
+      "passed": true,
+      "details": "Expected 'SOC 2' in text"
+    },
+    {
+      "test": "consistency_soc2_in_q5",
+      "question": "Q5",
+      "passed": true,
+      "details": "Expected 'SOC 2' in text"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "E1",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'low'"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "E1",
+      "passed": true,
+      "details": "Answer too short: 622 chars"
+    },
+    {
+      "test": "E1_appropriately_cautious",
+      "question": "",
+      "passed": true,
+      "details": "Condition should be true"
+    },
+    {
+      "test": "E1_has_flags",
+      "question": "",
+      "passed": true,
+      "details": "Condition should be true"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "E2",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'low'"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "E2",
+      "passed": true,
+      "details": "Answer too short: 507 chars"
+    },
+    {
+      "test": "E2_appropriately_cautious",
+      "question": "",
+      "passed": true,
+      "details": "Condition should be true"
+    },
+    {
+      "test": "E2_has_flags",
+      "question": "",
+      "passed": true,
+      "details": "Condition should be true"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "E3",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'low'"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "E3",
+      "passed": true,
+      "details": "Answer too short: 493 chars"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "E4",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'low'"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "E4",
+      "passed": true,
+      "details": "Answer too short: 1069 chars"
+    },
+    {
+      "test": "confidence_valid",
+      "question": "E5",
+      "passed": true,
+      "details": "Expected high/medium/low, got 'low'"
+    },
+    {
+      "test": "answer_not_empty",
+      "question": "E5",
+      "passed": true,
+      "details": "Answer too short: 288 chars"
+    }
+  ]
+}
